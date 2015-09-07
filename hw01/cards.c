@@ -1,22 +1,36 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 
 int decideValue(char card_name[]);
 int updateCount(int val, int count);
+void input();
+
+bool leave = false;
+char card_name[3];
 
 int main() {
-    char card_name[3];
     int count = 0;
     int val;
-    while (card_name[0] != 'x') {
-	puts("Enter the card_name: ");
-	scanf("%2s", card_name);
-	val = decideValue(card_name);
-	count = updateCount(val, count);
-	printf("Current count: %i\n", count);
+    while (!leave) {
+        input();
+        val = decideValue(card_name);
+        count = updateCount(val, count);
+        printf("Current count: %i\n", count);
     }
     return 0;
 }
+
+
+/*
+this function takes in an input from the user
+*/
+
+void input() {
+    puts("Enter the card_name: ");
+    scanf("%2s", card_name);
+}
+
 /*
  this function decides the value of each card_name
  KQJ are 10, A is 11 and anything less than 1 or more than 10 results in 0
@@ -25,20 +39,22 @@ int main() {
 int decideValue(char name[]) {
     int val;
     switch(name[0]) {
-	case 'K':
-	case 'Q':
-	case 'J':
-	    val = 10;
-	    break;
-	case 'A':
-	    val = 11;
-	    break;
-	case 'X':
-	default:
-	    val = atoi(name);
-	    if ((val < 1) || (val > 10)) {
-		puts("I don't understand that value !");
-	    }
+    case 'K':
+    case 'Q':
+    case 'J':
+        val = 10;
+        break;
+    case 'A':
+        val = 11;
+        break;
+    case 'X':
+        leave = true;
+        break;
+    default:
+        val = atoi(name);
+        if ((val < 1) || (val > 10)) {
+        puts("I don't understand that value !");
+        }
     }
     return val;
 }
