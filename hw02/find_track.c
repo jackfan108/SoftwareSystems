@@ -46,7 +46,8 @@ void find_track_regex(char pattern[])
     status = regcomp(&regexp, pattern, REG_EXTENDED); // compile the pattern with the regular expression and see if it's valid
     printf("status: %d\n", status);
 
-    for (int i = 0; i < NUM_TRACKS; i++) {
+    int i;
+    for (i = 0; i < NUM_TRACKS; i++) {
         // match every single track with the regex
         status = regexec(&regexp, tracks[i], NUM_TRACKS, matches, 0);
         if (status == 0) {
