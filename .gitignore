@@ -16,3 +16,9 @@
 *.exe
 *.out
 *.app
+
+*.pyc
+
+hw03/test
+hw03/test.c
+hw03/data

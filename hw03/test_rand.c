@@ -45,7 +45,7 @@ main (int argc, char *argv[])
   int i;
   float f;
   double t0, t1;
-  int iters = 1000000000;
+  int iters = 100000000; // 10^8
   int seed = 17;
 
   srandom (seed);
@@ -65,7 +65,7 @@ main (int argc, char *argv[])
   t1 = get_seconds();
   printf ("dummy \t %f ms\n", t1 - t0);
    
-
+  /*
   srandom (seed);
   t0 = get_seconds();
   for (i=0; i<iters; i++) {
@@ -82,12 +82,12 @@ main (int argc, char *argv[])
   }
   t1 = get_seconds();
   printf ("dummy2 \t %f ms\n", t1 - t0);    
-    
+  */
 
   srandom (seed);
   t0 = get_seconds();
   for (i=0; i<iters; i++) {
-    f = my_random_float();
+    f = my_random_float2();
   }
   t1 = get_seconds();
   printf ("mine \t %f ms\n", t1 - t0);
@@ -96,7 +96,7 @@ main (int argc, char *argv[])
   srandom (seed);
   t0 = get_seconds();
   for (i=0; i<iters; i++) {
-    f = my_random_float();
+    f = my_random_float2();
   }
   t1 = get_seconds();
   printf ("mine \t %f ms\n", t1 - t0);

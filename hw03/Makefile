@@ -1,7 +1,7 @@
 # Modify this line to contain the path to the directory that contains
 # libmongo.a and src
 LIB = mongo-c-driver/src
-
+#LIB = ~/SoftwareSystems/hw03
 
 # The -I flag tells the compiler where to look for include files.
 
@@ -18,3 +18,9 @@ tutorial: tutorial.c
 
 test_rand: test_rand.c
 	gcc -O3 test_rand.c -o test_rand
+
+test: rand.c test.c
+	gcc -O3 test.c -o test
+
+test_rand2: test_rand2.c rand.c
+	gcc -O3 test_rand2.c -o test_rand2
