@@ -32,16 +32,18 @@ void print_list(Node *head) {
 }
 
 int pop(Node **head) {
+
     int retval;
     Node *next_node;
+    Node* first = *head;
 
-    if (*head == NULL) {
+    if (first == NULL) {
         return -1;
     }
 
-    next_node = (*head)->next;
-    retval = (*head)->val;
-    free(*head);
+    next_node = first->next;
+    retval = first->val;
+    free(first);
     *head = next_node;
 
     return retval;
@@ -49,27 +51,93 @@ int pop(Node **head) {
 
 // Add a new element to the beginning of the list.
 void push(Node **head, int val) {
-    // FILL THIS IN!
+    *head = make_node(val, *head);
+}
+
+void append(Node *head, int val) {
+    Node* current = head;
+    while (current->next != NULL) {
+        current = current->next;
+    }
+    Node* new_node = make_node(val, NULL);
+    current->next = new_node;
 }
 
 // Remove the first element with the given value; return the number
 // of nodes removed.
 int remove_by_value(Node **head, int val) {
-    // FILL THIS IN!
+    if ((*head)->val == val) {
+        pop(head);
+        return 1;
+    }
+    Node* current = *head;
+    Node* next = current->next;
+
+    while(next->next != NULL) {
+        //printf("Current: %d\n", current->val);
+        //printf("Next: %d\n", next->val);
+        if (next->val == val) {
+            Node* temp = next->next;
+            free(current->next);
+            current->next = temp;
+            return 1;
+        }
+        current = next;
+        next = next->next;
+    }
+
+    /*
+    Node current = *(*head);
+    Node next = *current.next;
+    while (next.next != NULL) {
+        printf("Current: %d\n", current.val);
+        printf("Next: %d\n", next.val);
+        if (next.val == val) {
+            Node* temp = next.next;
+            free(current.next);
+            current.next = temp;
+            return 1;
+        }
+        current = next;
+        next = *next.next;
+    }*/
     return 0;
 }
 
 // Reverse the elements of the list without allocating new nodes.
 void reverse(Node **head) {
-    // FILL THIS IN!
+    
+    if ((*head)->next == NULL) {
+        return;
+    }
+    
+    Node* previous = *head;
+    Node* current = previous->next;
+    Node* next;
+
+    previous->next = NULL; // remember to set the new last value to NULL, otherwise you get a recursive linked list
+
+    while (1) {
+        if (current->next != NULL) {
+            next = current->next;
+            current->next = previous;
+            previous = current;
+            current = next;
+            continue;
+        }
+        current->next = previous;
+        *head = current;
+        break;
+    }
 }
 
 
 int main() {
     Node *test_list = make_node(1, NULL);
-    test_list->next = make_node(2, NULL);
-    test_list->next->next = make_node(3, NULL);
-    test_list->next->next->next = make_node(4, NULL);
+    int i;
+    for (i = 2; i <= 12; i++) {
+        append(test_list, i);
+    }
 
     int retval = pop(&test_list);
     push(&test_list, retval+10);

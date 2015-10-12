@@ -85,7 +85,7 @@ float my_random_float2()
     exp--;
     //printf("x&mask: %d\n", x & mask);
     //printf("mask: %d\n", mask);
-    //printf("exp: %d\n", exp);
+    printf("  exp: %d\n", exp);
   }
 
   // use the remaining bit as the mantissa
